@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<style>
+  .map {
+    width: 100%;
+    height: 500px;
+  }
+</style>
+
+<body>
+
+  <h3>My Google Maps Demo</h3>
+  <div id="map" class="map"></div>
+  <script>
+    function initMap() {
+
+      var losAngeles = {
+        lat: 34.0522,
+        lng: -118.2437
+      };
+
+      var beverlyHills = {
+        lat: 34.0736,
+        lng: -118.4004
+      };
+
+      var options = {
+        zoom: 10,
+        center: losAngeles
+      }
+
+      var map = new google.maps.Map(document.getElementById('map'), options);
+
+      addMarker({
+        coords: losAngeles,
+        name: 'Los Angeles'
+      });
+      addMarker({
+        coords: beverlyHills,
+        name: 'Beverly Hills'
+      });
+
+      function addMarker(props) {
+        var marker = new google.maps.Marker({
+          position: props.coords,
+          map: map
+        });
+        var infoWindow = new google.maps.InfoWindow({
+          content: '<h1>' + props.name + '</h1>'
+        });
+        marker.addListener('mouseover', function() {
+          infoWindow.open(map, marker);
+        });
+
+        marker.addListener('mouseout', function() {
+          infoWindow.close(map, marker);
+        });
+      }
+
+
+
+    }
+  </script>
+
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=[KEY]&callback=initMap">
+  </script>
+</body>
+
+</html>
